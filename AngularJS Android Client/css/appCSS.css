@@ -1,0 +1,289 @@
+﻿#gmap_canvas img{ max-width:none!important; background:none!important }
+@-ms-viewport { width: 100vw ; zoom: 100% ; }  @viewport { width: 100vw ; zoom: 100% ; }
+@-ms-viewport { user-zoom: fixed ; }           @viewport { user-zoom: fixed ; }
+.ui-header{ background: #00FF99 !important; }
+.ui-footer{ background: #00FF99 !important; }
+h1{ color: white; }
+div{ text-align: center; }
+.Err{ color: red; font-weight: bold; }
+.redLink { color: red !important; }
+.MenuBtnA{
+    float: right !important;
+    width: 50% !important;
+}
+.MenuBtnB{
+    float: left !important;
+    width: 50% !important;
+}
+.LeftPicF{
+    float: left !important;
+}
+.RightPicF{
+    float: right !important;
+}
+.LogOutButton { 
+    color: red !important;
+    border-color: red !important;
+}
+.petsList{
+    height: 150px;
+    overflow: auto;
+    display: none;
+}
+.messagesDIV{
+    height: 300px;
+    overflow: auto;
+    display: none;
+}
+.petsLocation{
+    height: 350px;
+    display: none;
+}
+.petHealth{
+    height: 500px;
+    display: none;
+}
+.healthDigA{
+    border: 1px solid black;
+    float: left !important;
+    height: 302px;
+    width: 79%;
+    background-color: white;
+    overflow: auto;
+    text-align:left !important;
+    white-space: pre-wrap;      /* CSS3 */   
+    white-space: -moz-pre-wrap; /* Firefox */    
+    white-space: -pre-wrap;     /* Opera <7 */   
+    white-space: -o-pre-wrap;   /* Opera 7 */    
+    word-wrap: break-word;
+}
+.healthDigB{
+    float: right !important;
+    height: 302px;
+    width: 19%;
+}
+.BlockDocIcon{
+    height: 120px;
+    width: 100%;
+}
+.picSlideDivCSS{
+    height: 400px;
+    display: none;
+}
+.fullSizeDiv{
+    overflow-y: scroll;
+    overflow-x: scroll;
+    height: 270px;
+}
+.IconListContainerDiv{
+    height: 235px;
+    overflow: auto;
+    align-content: center;
+    align-items: center;
+    text-align: center;
+}
+span { display: inline-block; }
+.loadSpan{
+    display:inline-block;
+    height: 200px;
+    width: 200px;
+}
+canvas { display: inline-block; }
+.myPic{ width: 100%; height: 100%; }
+.myCanvas{
+    border: 3px solid red;
+    background-color: black;
+}
+.Myhr { border-color: black; }
+table, th, td {
+    border: 2px solid #66FF99;
+    border-collapse: collapse;
+    text-align:left !important;
+}
+.AlrtRemarks{
+    border: 2px solid red;
+    height: 100px;
+    overflow: auto;
+    text-align:left !important;
+    white-space: pre-wrap;      /* CSS3 */   
+    white-space: -moz-pre-wrap; /* Firefox */    
+    white-space: -pre-wrap;     /* Opera <7 */   
+    white-space: -o-pre-wrap;   /* Opera 7 */    
+    word-wrap: break-word;
+}
+.MapDiv{
+    border: 2px solid black !important;
+    overflow: auto;
+}
+
+
+/*______POP UP WINDOW_______*/
+
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #FFFFCC;
+    margin: auto;
+    padding: 10px;
+    border: 2px solid black;
+    width: 80%;
+}
+
+/* The Close Button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/*_____html special Button______*/
+
+.myBTN {
+  background: #7ff565;
+  background-image: -webkit-linear-gradient(top, #7ff565, #65961c);
+  background-image: -moz-linear-gradient(top, #7ff565, #65961c);
+  background-image: -ms-linear-gradient(top, #7ff565, #65961c);
+  background-image: -o-linear-gradient(top, #7ff565, #65961c);
+  background-image: linear-gradient(to bottom, #7ff565, #65961c);
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0px;
+  text-shadow: 2px 0px 5px #ffffff;
+  font-family: Arial;
+  color: #000000;
+  font-size: 20px;
+  padding: 2px 20px 2px 20px;
+  border: solid #000000 3px;
+  text-decoration: none;
+}
+
+.myBTN:hover {
+  background: #e0ff57;
+  background-image: -webkit-linear-gradient(top, #e0ff57, #ccbb04);
+  background-image: -moz-linear-gradient(top, #e0ff57, #ccbb04);
+  background-image: -ms-linear-gradient(top, #e0ff57, #ccbb04);
+  background-image: -o-linear-gradient(top, #e0ff57, #ccbb04);
+  background-image: linear-gradient(to bottom, #e0ff57, #ccbb04);
+  text-decoration: none;
+}
+
+.myTextInpt{
+    font: bold;
+    width: 95%;
+    border: 1px solid black;
+}
+
+.DivIcon{
+    background: #99ff99;
+    align-self: center;
+    border-color: #009900;
+    width: 100%;
+}
+
+.DivIcon:hover{
+    background: #ccff99;
+}
+
+.MSGboxframeA{
+    height: 100%;
+    width: 20%;
+    float: left;
+    background-color: #009933;
+    color:white;
+}
+
+.MSGboxframeB{
+    width: 80%;
+    float: right;
+    background-color: #33cc33;
+    color: white;
+}
+
+.MSGboxframeC{
+    background-color: #ffff99;
+    border: 1px solid black;
+}
+
+.Rmnu{
+    float:right !important;
+}
+
+.Lmnu{
+    float: left !important;
+}
+
+.RadioSizeD{
+    width: 95%;
+    height: 75px;
+    background-color: #b3ff99;
+    border: 1px solid black;
+}
+
+.RadioSizeIMG{
+    float:left !important;
+}
+
+.containAgeSizeDiv{
+    height:400px;
+    overflow:auto;
+}
+
+.profLeft{
+    width: 80%;
+    height: 50px;
+    float: left;
+    text-align:left;
+    font-size:small;
+    overflow:auto;
+}
+
+.profRight{
+    width: 20%;
+    height: 50px;
+    float: right;
+}
+
+.profContainer{
+    border:1px solid white;
+    height:53px;
+    background-color: #f3ffe6;
+}
+
+.illnessDetailBox{
+    border:1px solid black;
+    background-color: white;
+    overflow: auto;
+    text-align:left !important;
+    white-space: pre-wrap;      /* CSS3 */   
+    white-space: -moz-pre-wrap; /* Firefox */    
+    white-space: -pre-wrap;     /* Opera <7 */   
+    white-space: -o-pre-wrap;   /* Opera 7 */    
+    word-wrap: break-word;
+    height: 325px;
+}
+
+.symptms_Rpciks{
+    overflow: auto;
+    height: 335px;
+}

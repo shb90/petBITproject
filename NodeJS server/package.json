@@ -1,0 +1,20 @@
+{
+  "name": "iPetServer",
+  "version": "0.0.0",
+  "description": "iPetServer",
+  "main": "server.js",
+  "author": {
+    "name": "Shb",
+    "email": ""
+  },
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "bufferutil": "1.2.1",
+    "express": "^4.14.0",
+    "jade": "^1.11.0",
+    "pg": "^6.1.0",
+    "socket.io": "^1.5.0",
+    "utf-8-validate": "1.2.1",
+    "ws": "1.1.1"
+  }
+}

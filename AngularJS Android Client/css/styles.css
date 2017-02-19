@@ -1,0 +1,82 @@
+body {
+         background-color: #FFFFFF;
+         font-family: David;
+         font-size: 30;
+}
+input[type=text] {
+position: relative;
+	background: #0000FF;
+	font-family: Arial, Sans-Serif;
+	font-size: 30px;
+	margin-bottom: 5px;
+	display: block;
+	padding: 4px;
+	width: 320px;
+	border: solid 1px #85b1de;
+}
+input[type=button] {
+background: #00000F;
+	font-family: Arial;
+	font-size: X-Large;
+	width: 80px;
+	height: 80px;
+}
+label{
+position: relative;
+	background: #0000F0;
+	width: 200px;
+	height: 80px;
+	font-size: XX-Large;
+	text-align: center;
+}
+
+table{
+	background: #000000;
+	font-size: 100;      
+	text-align: center;
+}
+
+button {
+background: #0000FF;
+	font-family: Arial;
+	font-size: X-Large;
+	width: 80px;
+	height: 80px;
+}
+
+.buttonInTable{
+	background: #FFFFFF;
+	font-family: Arial;
+	font-size: XX-Large;
+	width: 120px;
+	height: 120px;
+}
+
+.buttonAbsolutePosition{
+	background: #FF0000;
+	font-family: Arial;
+	font-size: XX-Large;
+	width: 120px;
+	height: 120px;
+	position: absolute;
+	left: 0px;
+    top: 0px;
+}
+
+.labelAbsolutePosition{
+	background: #FF0000;
+	font-family: Arial;
+	font-size: XX-Large;
+	width: 120px;
+	height: 120px;
+	position: absolute;
+	left: 100px;
+    top: 100px;
+}
+
+
+.divAbsolutePosition{
+	position: absolute;
+	left: 0px;
+    top: 0px;
+}

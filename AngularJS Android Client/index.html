@@ -1,0 +1,307 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>iPet Mobile</title>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+	<!-- Extensions -->
+    <script src="cordova.js"></script>
+    <script src="js/app.js"></script>
+    <script src="xdk/init-dev.js"></script>
+    <link rel="stylesheet" href="css/themes/iPetCSS.min.css" type="text/css" />
+    <link rel="stylesheet" href="css/themes/jquery.mobile.icons.min.css" type="text/css" />
+    <link rel="stylesheet" href="css/Jquerymobile-structure.css" type="text/css" />
+    <script src="js/angular.min.js"></script>
+    <script src="js/jquery-2.1.3.min.js"></script> 
+    <script src="js/jquery.mobile-1.4.5.js"></script>
+    <script src="js/FileSaverMin.js"></script>
+    <script src="js/CanvasToBlob.js"></script>
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+    <script src="https://ipet-project-server.herokuapp.com/socket.io/socket.io.js"></script> 
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/myAppStyles.css" type="text/css" />
+    <link rel="stylesheet" href="css/appCSS.css" type="text/css" />
+	
+	
+    <script type="text/javascript">
+         
+        var serverAddress = "https://ipet-project-server.herokuapp.com/";
+		
+        var loadMyHomepage;
+
+        angular.module('myApp', [])
+        .controller('rootControll', function ($scope, $rootScope,$http) {
+            $rootScope.SA = serverAddress;
+            $rootScope.footerText = "Shay butbul-Almog yehuda-Yuval kogan";
+            loadJavaScriptElements();
+            $rootScope.logOffEvent = 'null';
+            $rootScope.docWidth = 339 - 20;
+            makeLoadingBOX('loadingBox0', 'loginPage');
+            makeLoadingBOX('loadingBox1', 'homePage');
+            
+
+            window.addEventListener("beforeunload", function (e)
+            {
+                if ($rootScope.logOffEvent != 'null') { $rootScope.logOffEvent(); }
+            }, false);
+
+            $scope.TEST_ = function () {
+                $http.get($rootScope.SA + '?command=ConnectAllPets&userName=all')
+                .then(function (result) { alert(result.data.log); })
+                .catch(function (data, status, headers, config) { alert(GetErrText('Cannot connect to Server', data, status, headers, config)); });
+                loadingOPEN('Please wait!!');
+                setTimeout(loadingClose, 3000);
+            };
+        });
+
+    </script>
+
+	<!-- App Controllers -->
+    <script src="Controllers_functions/JavaScriptFunctions.js"></script>
+    <script src="Controllers_functions/LoginControl.js"></script>
+    <script src="Controllers_functions/HomeControl.js"></script>
+    <script src="Controllers_functions/Directives.js"></script>
+    <script src="Controllers_functions/Heart.js"></script>
+    <script src="Controllers_functions/Picture.js"></script>
+    <script src="Controllers_functions/MapFunctions.js"></script>
+
+</head>
+
+<body ng-app="myApp">
+<!-- LOGIN PAGE -->
+    <div data-role="page" id="loginPage">
+        <div ng-controller="rootControll"></div>
+        <div ng-controller="loginCtrl">
+            <div id="LoginAlertDiv"></div>
+            <div data-role="header"><h1>petBIT</h1></div>
+            <div data-role="main" class="ui-content">
+                <div id="tempTest"></div>
+                <img src="images/Logo.png" />
+                <p class="Err">{{ErrorLine}}</p><hr>
+                User name : <br>
+                <input type="text" ng-model="userName" /><br>
+                Password : <br>
+                <input type="password" ng-model="password" />
+                <div id="phoneSlide" style="display:none;">
+                    Phone number : <br>
+                    <input type="text" ng-model="phone" />
+                </div><hr>
+                <button ng-click="myClick('OwnerLogin')">Login</button>
+                <button id="SignB" ng-click="myClick('OwnerSignup'); SignupSlide();">Signup</button><hr>
+                <script> $("#SignB").click(function () { $("#phoneSlide").slideToggle("fast"); }); </script>
+            </div>
+            <div data-role="footer"><h1>{{footerText}}</h1></div>
+        </div>
+    </div>
+<!-- HOME PAGE -->
+    <div data-role="page" id="homePage" ng-controller="homeCtrl">
+        <div data-role="header"><h1>{{OwnerName}}</h1></div>
+        <div data-role="main" class="ui-content">
+            <div id="HomeAlertDiv"></div>
+			
+			<!-- Selected Pet profile -->
+            <div id="IDcontn_" class="profContainer">
+                <div class="profLeft">
+                    <b id="profTEXT">No pet has been selected<br />select pet form the list<br /></b>
+                </div>
+                <div class="profRight">
+                    <img src="images/NoPetsProf.png" id="profIMG" />
+                </div>
+            </div>
+
+            <button ng-click="LogOff()" class="LogOutButton"><b>LOGOUT from {{OwnerName}}</b></button>
+            <hr class="Myhr">
+
+            <p id="petListActiveSlide" ng-click="setMyPetsList()">
+            <b>{{OwnerName}} pets-list:</b>
+            </p>
+            <div id="petslistDiv" class="petsList"
+                 style="background-color:#fefffd" >
+            </div><hr class="Myhr">
+            <script> $("#petListActiveSlide").click(function(){ $("#petslistDiv").slideToggle("fast"); }); </script>
+
+            <p id="AddActiveSlide">
+            <b>Add a pet:</b>
+            </p>
+            <div id="addSlide" style="display:none; background-color:#fefffd;">
+                Pet's name : <br>
+                <input type="text" ng-model="petNameText" /><br>
+                Pet's number : <br>
+                <input type="text" ng-model="petNumberText" /><br>
+                <button ng-click="AddPet()">Add pet</button>
+            </div><hr class="Myhr">
+            <script> $("#AddActiveSlide").click(function(){ $("#addSlide").slideToggle("fast"); }); </script>
+            <!-- Pets Icons selection -->
+            <div id="IconBox" class="modal">
+                <div class="modal-content">
+                    <div onclick="closeBox('IconBox')">
+                        <span class="close">×</span>
+                    </div>
+                    <p>Select an icon for {{petNameText}}</p>
+                    <div class="IconListContainerDiv" id="placeForIcons">
+                    </div>
+                </div>
+            </div>
+            <!-- Add pet box (type,age) popup box -->
+                <div id="sizeAgeBox" class="modal">
+                    <div class="modal-content">
+                        <div style="width:100%; height: 40px;">
+                            <div onclick="closeBox('sizeAgeBox')">
+                                <span class="close">×</span>
+                            </div>
+                        </div>
+                        <div class="containAgeSizeDiv">
+                            <b>Size</b><br />(small by default)
+                            <div class="RadioSizeD" id="smallDogD" onclick="pickSizeDog('small', 'smallDogD')">
+                                <img src="images/SmallD.png" class="RadioSizeIMG" />
+                                <img src="images/SmallDtext.png" />
+                            </div>
+                            <div class="RadioSizeD" id="mediDogD" onclick="pickSizeDog('medium', 'mediDogD')">
+                                <img src="images/MediumD.png" class="RadioSizeIMG" />
+                                <img src="images/MediumDtext.png" />
+                            </div>
+                            <div class="RadioSizeD" id="bigDogD" onclick="pickSizeDog('big', 'bigDogD')">
+                                <img src="images/BigD.png" class="RadioSizeIMG" />
+                                <img src="images/BigDtext.png" />
+                            </div>
+
+                            <hr class="Myhr">
+                            <b>Age</b>
+                            <input type="range" min="1" max="12" value="0" step="1"
+                                   onchange="showRangeValue(this.value, 'MonthsRangeText', 'months')" />
+                            <p id="MonthsRangeText">1 month or less</p>
+                            <hr />
+                            <input type="range" min="0" max="25" value="0" step="1"
+                                   onchange="showRangeValue(this.value, 'YearsRangeText', 'years')" />
+                            <p id="YearsRangeText">0 years</p>
+                            <hr class="Myhr">
+                            <button ng-click="SendFinalPetAddRequest()">Add pet</button>
+                        </div>
+                </div>
+            </div>
+			
+			<!-- Flash light -->
+            <button ng-click="turnFlashLight()" id="lightSwitchB">
+               Turn Light ON 
+                <img src="images/lightOFF.png" style="float:right"/>
+            </button>
+
+
+            <p id="petsLocationActiveSlide" ng-click="setLocation()">
+            <b>Check location:</b>
+            </p>
+            <!-- Chat box -->
+                <div id="myModal" class="modal">
+                    <div class="modal-content">
+                        <div onclick="closeBox('myModal')">
+                            <span class="close">×</span>
+                        </div>
+                        <p>Send a message to {{friendOwnerUsername}}</p>
+                        <textarea rows="4" cols="50" ng-model="msgChatText"></textarea>
+                        <button ng-click="sendMyChatbox()">Send</button>
+                    </div>
+                </div>
+            <div id="locationSlide" class="petsLocation" style="height:400px; background-color:#fefffd">
+            <script> $("#petsLocationActiveSlide").click(function () { $("#locationSlide").slideToggle("fast"); }); </script>
+            </div><hr class="Myhr">
+            <button class="MenuBtnA" ng-click="GetAreaPets()">
+			<b>Pets near me</b><br />
+                <img src="images/mapOtherPets.png" /></button>
+            <button class="MenuBtnB" ng-click="getRadius()">
+			<b>Put radius</b><br />
+                <img src="images/mapRadius.png" /></button>
+			<!-- Marks a circle on the map popup -->
+            <div id="RadiusBox" class="modal">
+                <div class="modal-content">
+                    <div onclick="closeBox('RadiusBox')">
+                        <span class="close">×</span>
+                    </div>
+                    <p>Select distance</p>
+                    <div class="IconListContainerDiv" id="placeForRadius">
+                    </div>
+                </div>
+            </div>
+			
+			<!-- Friend list -->
+            <p id="friendsListActive" ng-click="setFriends()">
+            <b>Put Friends pets on my map</b>
+            </p>
+            <div id="friendslistDiv" class="petsList" style="background-color:#fefffd">
+            </div><hr class="Myhr">
+            <script> $("#friendsListActive").click(function(){ $("#friendslistDiv").slideToggle("fast"); }); </script>
+
+            <p id="AddFriendActiveSlide">
+            <b>Add a friend:</b>
+            </p>
+            <div id="addFriendSlide" style="display:none; background-color:#fefffd">
+                Friend's user-name : <br>
+                <input type="text" ng-model="friendNameText"/><br>
+                <button ng-click="AddFriend()">Add Friend</button>
+            </div><hr class="Myhr">
+            <script> $("#AddFriendActiveSlide").click(function(){ $("#addFriendSlide").slideToggle("fast"); }); </script>
+
+            <p id="MessagesSlideActive" ng-click="setMessages()">
+            <b>My Messages({{MSGstatus}})</b>
+            </p>
+            <div id="MessagesListDiv" class="messagesDIV" style="background-color:#fefffd">
+            </div><hr class="Myhr">
+            <script> $("#MessagesSlideActive").click(function () { $("#MessagesListDiv").slideToggle("fast"); }); </script>
+
+			<!-- Health -->
+            <p id="healthActiveSlide" ng-click="setHealth()">
+            <b>Check pet's health:</b>
+            </p>
+            <div id="healthSlideDiv" class="petHealth" style="background-color:#fefffd">
+            </div><hr class="Myhr">
+            <script> $("#healthActiveSlide").click(function(){ $("#healthSlideDiv").slideToggle("fast"); }); </script>
+			
+            <!-- Pet symptoms popup box-->
+            <div id="mySymptoms" class="modal">
+                <div class="modal-content">
+                    <div onclick="closeBox('mySymptoms')">
+                        <span class="close">×</span>
+                    </div><br /><hr />
+                    <div style="background-color:white">
+                        <div id="medicalBOX"></div>
+                    </div>
+                </div>
+            </div>
+			
+			<!-- Illness popup box -->
+            <div id="illnessBox" class="modal">
+                <div class="modal-content">
+                    <div onclick="closeBox('illnessBox')">
+                        <span class="close">×</span>
+                    </div>Illness details<br /><hr />
+                    <div id="illnessDIV" class="illnessDetailBox"></div>
+                </div>
+            </div>
+
+
+            <p id="picActiveSlide">
+            <b>Get area picture:</b>
+            </p>
+            <div id="picSlideDiv" class="picSlideDivCSS" style="background-color:#fefffd">
+                <button ng-click="setPicture()">Get pet's location picture</button><hr />
+                <div id="placeForPic"></div>
+            </div><hr class="Myhr">
+            <script> $("#picActiveSlide").click(function(){ $("#picSlideDiv").slideToggle("fast"); }); </script>
+            <!-- SaveAs popup box -->
+            <div id="SaveAsModal" class="modal">
+                <div class="modal-content">
+                    <div onclick="closeBox('SaveAsModal')">
+                        <span class="close">×</span>
+                    </div>
+                    <p>Save as </p>
+                    <p class="Err">{{SaveAsErr}}</p>
+                    <input type="text" ng-model="saveAsText" />
+                    <button ng-click="savePicture()">Save</button>
+                </div>
+            </div>
+
+
+        </div>
+        <div data-role="footer"><h1>{{footerText}}</h1></div>
+    </div>
+</body>
+</html>
